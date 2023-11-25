@@ -49,6 +49,10 @@ public class CameraSystem : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift)) inputDir.y = -1.0f;
         if (Input.GetKey(KeyCode.Space)) inputDir.y = +1.0f;
 
+        #region ClampingDirY
+        float clampedDirY = Mathf.Clamp(inputDir.y, -5, 20);
+        #endregion
+
         #region DragPan
         //int edgeScrollSize = 20;
 
@@ -92,7 +96,7 @@ public class CameraSystem : MonoBehaviour
         //}
         #endregion
 
-        Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x + transform.up * inputDir.y;
+        Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x + transform.up * clampedDirY;
         transform.position += moveDir * moveSpd * Time.deltaTime;
     }
 

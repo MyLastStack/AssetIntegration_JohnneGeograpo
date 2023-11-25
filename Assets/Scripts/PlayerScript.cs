@@ -6,31 +6,35 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] Outline outline;
 
+    public bool hovered;
     public bool currentSelected;
 
     void Start()
     {
+        hovered = false;
         currentSelected = false;
+        outline.OutlineWidth = 0f;
     }
 
     void Update()
     {
         if (currentSelected)
         {
-            outline.enabled = true;
+            outline.OutlineWidth = 1.8f;
         }
-        else
+        else if (!hovered)
         {
-            outline.enabled = false;
+            outline.OutlineWidth = 0f;
         }
     }
 
     private void OnMouseEnter()
     {
-        outline.enabled = true;
+        hovered = true;
+        outline.OutlineWidth = 1.8f;
     }
     private void OnMouseExit()
     {
-        outline.enabled = false;
+        hovered = false;
     }
 }
