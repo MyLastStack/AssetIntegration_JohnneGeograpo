@@ -102,7 +102,7 @@ public class CameraSystem : MonoBehaviour
         Vector3 worldSize = world.terrainData.size;
 
         float clampedX = Mathf.Clamp(currentPos.x, -worldSize.x / 2.0f, worldSize.x / 2.0f);
-        float clampedY = Mathf.Clamp(currentPos.y, -5, 20);
+        float clampedY = Mathf.Clamp(currentPos.y, -5, 5);
         float clampedZ = Mathf.Clamp(currentPos.z, -worldSize.z / 2.0f, worldSize.z / 2.0f);
 
         transform.position = new Vector3(clampedX, clampedY, clampedZ);
