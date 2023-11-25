@@ -49,10 +49,6 @@ public class CameraSystem : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift)) inputDir.y = -1.0f;
         if (Input.GetKey(KeyCode.Space)) inputDir.y = +1.0f;
 
-        #region ClampingDirY
-        float clampedDirY = Mathf.Clamp(inputDir.y, -5, 20);
-        #endregion
-
         #region DragPan
         //int edgeScrollSize = 20;
 
@@ -96,7 +92,7 @@ public class CameraSystem : MonoBehaviour
         //}
         #endregion
 
-        Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x + transform.up * clampedDirY;
+        Vector3 moveDir = transform.forward * inputDir.z + transform.right * inputDir.x + transform.up * inputDir.y;
         transform.position += moveDir * moveSpd * Time.deltaTime;
     }
 
@@ -106,9 +102,10 @@ public class CameraSystem : MonoBehaviour
         Vector3 worldSize = world.terrainData.size;
 
         float clampedX = Mathf.Clamp(currentPos.x, -worldSize.x / 2.0f, worldSize.x / 2.0f);
+        float clampedY = Mathf.Clamp(currentPos.y, -5, 20);
         float clampedZ = Mathf.Clamp(currentPos.z, -worldSize.z / 2.0f, worldSize.z / 2.0f);
 
-        transform.position = new Vector3(clampedX, currentPos.y, clampedZ);
+        transform.position = new Vector3(clampedX, clampedY, clampedZ);
     }
 
     private void HandleCameraRotation()
