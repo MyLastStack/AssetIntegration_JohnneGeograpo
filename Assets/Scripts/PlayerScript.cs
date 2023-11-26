@@ -20,11 +20,12 @@ public class PlayerScript : MonoBehaviour
     public bool currentSelected;
     public bool moving;
 
-    public float maxDistanceTravel; //spells
+    public float maxDistanceTravel; // DISTANCE OF CASTING SPELL
 
-    bool onWalk;
-    bool onSpell;
-    bool onMelee;
+    [Header("Character Status")]
+    public bool onWalk;
+    public bool onSpell;
+    public bool onMelee;
 
     public int turnCount;
 
@@ -48,6 +49,7 @@ public class PlayerScript : MonoBehaviour
         if (currentSelected)
         {
             outline.OutlineWidth = 1.8f;
+            CurrentKey();
         }
         else if (!hovered)
         {
@@ -79,11 +81,17 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void TurnSelect()
+    public void SpellCast(Vector3 target)
     {
-        if ()
+        float distance = Vector3.Distance(transform.position, target);
+        Debug.Log(distance);
+        if (distance > maxDistanceTravel)
         {
-
+            Debug.Log("Too far");
+        }
+        else if (distance <= maxDistanceTravel)
+        {
+            Debug.Log("Just right");
         }
     }
 

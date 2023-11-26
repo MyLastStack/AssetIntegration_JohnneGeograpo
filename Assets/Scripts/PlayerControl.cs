@@ -13,7 +13,6 @@ public class PlayerControl : MonoBehaviour
     RaycastHit hit;
 
     public bool selected;
-    public float remDist;
 
     void Start()
     {
@@ -46,8 +45,18 @@ public class PlayerControl : MonoBehaviour
                     {
                         if (!selectedChar.GetComponent<PlayerScript>().moving)
                         {
-                            agentChar.SetDestination(hit.point);
-                            remDist = agentChar.remainingDistance;
+                            if (selectedChar.GetComponent<PlayerScript>().onWalk)
+                            {
+                                agentChar.SetDestination(hit.point);
+                            }
+                            else if (selectedChar.GetComponent<PlayerScript>().onSpell)
+                            {
+                                selectedChar.GetComponent<PlayerScript>().SpellCast(hit.point);
+                            }
+                            else if (selectedChar.GetComponent<PlayerScript>().onMelee)
+                            {
+
+                            }
                         }
                     }
                 }
