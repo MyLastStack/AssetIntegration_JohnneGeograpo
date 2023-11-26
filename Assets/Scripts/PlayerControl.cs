@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] public GameObject selectedChar;
     [SerializeField] public NavMeshAgent agentChar;
+    private NavMeshPath path;
     RaycastHit hit;
 
-    public float maxDistanceFromPoint;
     public bool selected;
+    public float remDist;
 
     void Start()
     {
         selected = false;
         selectedChar = null;
+
+        path = new NavMeshPath();
     }
 
     void Update()
@@ -37,7 +42,14 @@ public class PlayerControl : MonoBehaviour
                 }
                 else if (selectedChar.transform.CompareTag("PlayerControlled") && selected)
                 {
-                    agentChar.SetDestination(hit.point);
+                    if (!EventSystem.current.IsPointerOverGameObject())
+                    {
+                        if (!selectedChar.GetComponent<PlayerScript>().moving)
+                        {
+                            agentChar.SetDestination(hit.point);
+                            remDist = agentChar.remainingDistance;
+                        }
+                    }
                 }
             }
         }

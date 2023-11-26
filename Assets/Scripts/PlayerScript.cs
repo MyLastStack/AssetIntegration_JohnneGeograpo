@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+    [SerializeField] InputAction walkAction;
+    [SerializeField] InputAction spellAction;
+    [SerializeField] InputAction meleeAction;
+
     [SerializeField] Outline outline;
     [SerializeField] GameObject playerCanvas;
 
@@ -13,14 +18,27 @@ public class PlayerScript : MonoBehaviour
 
     public bool hovered;
     public bool currentSelected;
-    public float huh;
+    public bool moving;
+
+    public float maxDistanceTravel; //spells
+
+    bool onWalk;
+    bool onSpell;
+    bool onMelee;
+
+    public int turnCount;
 
     void Start()
     {
         hovered = false;
         currentSelected = false;
         outline.OutlineWidth = 0f;
+
         playerCanvas.SetActive(false);
+
+        onWalk = true;
+        onSpell = false;
+        onMelee = false;
     }
 
     void Update()
@@ -39,9 +57,41 @@ public class PlayerScript : MonoBehaviour
         AgentMovementAnimation(agent.velocity.magnitude);
     }
 
+    private void CurrentKey()
+    {
+        if (walkAction.WasPressedThisFrame())
+        {
+            onWalk = true;
+            onSpell = false;
+            onMelee = false;
+        }
+        if (spellAction.WasPressedThisFrame())
+        {
+            onWalk = false;
+            onSpell = true;
+            onMelee = false;
+        }
+        if (meleeAction.WasPressedThisFrame())
+        {
+            onWalk = false;
+            onSpell = false;
+            onMelee = true;
+        }
+    }
+
+    private void TurnSelect()
+    {
+        if ()
+        {
+
+        }
+    }
+
     private void AgentMovementAnimation(float mag)
     {
         animator.SetFloat("Running", mag);
+        if (mag > 0) { moving = true; }
+        else { moving = false; }
     }
 
     private void OnMouseEnter()
@@ -52,5 +102,18 @@ public class PlayerScript : MonoBehaviour
     private void OnMouseExit()
     {
         hovered = false;
+    }
+
+    private void OnEnable()
+    {
+        walkAction.Enable();
+        spellAction.Enable();
+        meleeAction.Enable();
+    }
+    private void OnDisable()
+    {
+        walkAction.Disable();
+        spellAction.Disable();
+        meleeAction.Disable();
     }
 }
