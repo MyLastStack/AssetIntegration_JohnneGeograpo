@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PlayerControlled
   - AIControlled
+  - FxTemporaire
+  - Terrain
   layers:
   - Default
   - TransparentFX

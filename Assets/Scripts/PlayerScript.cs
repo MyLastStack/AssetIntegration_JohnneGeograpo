@@ -21,12 +21,12 @@ public class PlayerScript : MonoBehaviour
     public bool moving;
 
     public float maxDistanceTravel; // DISTANCE OF CASTING SPELL
+    [SerializeField] Transform spawner;
 
     [Header("Character Status")]
     public bool onWalk;
     public bool onSpell;
     public bool onMelee;
-
     public int turnCount;
 
     void Start()
@@ -91,7 +91,11 @@ public class PlayerScript : MonoBehaviour
         }
         else if (distance <= maxDistanceTravel)
         {
+            spawner.LookAt(target);
+            transform.LookAt(target);
             Debug.Log("Just right");
+
+            animator.Play("LevelUp_Battle_SwordAndShield", 0);
         }
     }
 
