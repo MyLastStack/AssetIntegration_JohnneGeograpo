@@ -22,9 +22,6 @@ public class PlayerControl : MonoBehaviour
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit) && selectedChar == null)
             {
-                Debug.Log("Hit object name: " + hit.transform.name);
-                Debug.Log("Hit object tag: " + hit.transform.tag);
-
                 if (hit.transform.CompareTag("PlayerControlled"))
                 {
                     if (!selected)
@@ -38,7 +35,6 @@ public class PlayerControl : MonoBehaviour
 
     private void CharSelect()
     {
-        Debug.Log("Selected");
         selected = true;
         selectedChar = hit.transform.gameObject;
 
@@ -50,7 +46,6 @@ public class PlayerControl : MonoBehaviour
 
     public void CharDeselect()
     {
-        Debug.Log("Deselected");
         selected = false;
 
         if (selectedChar.GetComponent<PlayerScript>() != null)
