@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] public GameObject selectedChar;
+    [SerializeField] public NavMeshAgent agentChar;
     RaycastHit hit;
 
+    public float maxDistanceFromPoint;
     public bool selected;
 
     void Start()
@@ -20,14 +23,21 @@ public class PlayerControl : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit) && selectedChar == null)
+            if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.CompareTag("PlayerControlled"))
+                if (selectedChar == null)
                 {
-                    if (!selected)
+                    if (hit.transform.CompareTag("PlayerControlled"))
                     {
-                        CharSelect();
+                        if (!selected)
+                        {
+                            CharSelect();
+                        }
                     }
+                }
+                else if (selectedChar.transform.CompareTag("PlayerControlled") && selected)
+                {
+                    agentChar.SetDestination(hit.point);
                 }
             }
         }
@@ -37,6 +47,7 @@ public class PlayerControl : MonoBehaviour
     {
         selected = true;
         selectedChar = hit.transform.gameObject;
+        agentChar = hit.transform.gameObject.GetComponent<NavMeshAgent>();
 
         if (hit.transform.CompareTag("PlayerControlled"))
         {

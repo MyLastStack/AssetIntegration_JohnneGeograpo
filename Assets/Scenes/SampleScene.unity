@@ -250,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334187951}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24253564, y: 0.000000011975956, z: -0.000000002993989, w: 0.97014254}
+  m_LocalRotation: {x: 0.2425356, y: -0.000000028912503, z: 0.0000000072281248, w: 0.97014254}
   m_LocalPosition: {x: 0, y: 8, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1285,7 +1285,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.24253564, y: 0.000000011975956, z: -0.000000002993989, w: 0.97014254}
+  m_LocalRotation: {x: 0.2425356, y: -0.000000028912503, z: 0.0000000072281248, w: 0.97014254}
   m_LocalPosition: {x: 0, y: 8, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2310,6 +2310,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8189980434977739222, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
   m_PrefabInstance: {fileID: 1535050535}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1598307123 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9036980633323257398, guid: 2dfbb63c9cdf7504faf4ff26b0581598, type: 3}
+  m_PrefabInstance: {fileID: 1535050535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1598307124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2369,8 +2374,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outline: {fileID: 1598307124}
   playerCanvas: {fileID: 385255999}
+  agent: {fileID: 1598307129}
+  animator: {fileID: 1598307123}
   hovered: 0
   currentSelected: 0
+  huh: 0
 --- !u!195 &1598307129
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2384,7 +2392,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -2477,6 +2485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedChar: {fileID: 0}
+  agentChar: {fileID: 0}
+  maxDistanceFromPoint: 0
   selected: 0
 --- !u!1001 &1999086804
 PrefabInstance:
