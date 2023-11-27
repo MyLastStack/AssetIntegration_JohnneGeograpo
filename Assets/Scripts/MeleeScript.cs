@@ -16,9 +16,9 @@ public class MeleeScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("AIControlled"))
+        if (other.tag == "AIControlled")
         {
-            Destroy(other);
+            Destroy(other.gameObject);
         }
     }
 }

@@ -48,6 +48,8 @@ public class ProjectileScript : MonoBehaviour
             explosion.SetActive(true);
             explosionFX.Play();
 
+            Destroy(collision.gameObject);
+
             Invoke("DestroyItself", boomDuration);
         }
     }

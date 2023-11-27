@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Transform spawner;
     [SerializeField] GameObject projectile;
     // MELEE FX and SCRIPT
+    [SerializeField] GameObject meleeScript;
     [SerializeField] GameObject splashScript;
     [SerializeField] ParticleSystem splashFX;
     float fxTimer;
@@ -39,6 +40,8 @@ public class PlayerScript : MonoBehaviour
         playerCanvas.SetActive(false);
         splashScript.SetActive(false);
         fxTimer = splashFX.duration + splashFX.startLifetime;
+
+        meleeScript.SetActive(false);
 
         onWalk = true;
         onSpell = false;
@@ -109,6 +112,7 @@ public class PlayerScript : MonoBehaviour
 
                 splashScript.SetActive(true);
                 splashFX.Play();
+                meleeScript.SetActive(true);
 
                 Invoke("FXDeactivate", fxTimer);
             }
@@ -118,6 +122,11 @@ public class PlayerScript : MonoBehaviour
     private void FXDeactivate()
     {
         splashScript.SetActive(false);
+        meleeScript.SetActive(false);
+    }
+    private void KillEnemy()
+    {
+
     }
 
     private void AgentMovementAnimation(float mag)
