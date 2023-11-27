@@ -23,6 +23,10 @@ public class PlayerScript : MonoBehaviour
     public float maxDistanceTravel; // DISTANCE OF CASTING SPELL
     [SerializeField] Transform spawner;
     [SerializeField] GameObject projectile;
+    // MELEE FX and SCRIPT
+    [SerializeField] GameObject splashScript;
+    [SerializeField] ParticleSystem splashFX;
+    float fxTimer;
 
     [Header("Character Status")]
     public bool onWalk;
@@ -37,6 +41,8 @@ public class PlayerScript : MonoBehaviour
         outline.OutlineWidth = 0f;
 
         playerCanvas.SetActive(false);
+        splashScript.SetActive(false);
+        fxTimer = splashFX.duration + splashFX.startLifetime;
 
         onWalk = true;
         onSpell = false;
@@ -106,7 +112,17 @@ public class PlayerScript : MonoBehaviour
             transform.LookAt(target);
 
             animator.Play("LevelUp_Battle_SwordAndShield", 0);
+
+            splashScript.SetActive(true);
+            splashFX.Play();
+
+            Invoke("FXDeactivate", fxTimer);
         }
+    }
+
+    private void FXDeactivate()
+    {
+        splashScript.SetActive(false);
     }
 
     private void AgentMovementAnimation(float mag)
