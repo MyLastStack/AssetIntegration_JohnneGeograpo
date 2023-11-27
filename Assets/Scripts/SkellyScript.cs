@@ -15,6 +15,8 @@ public class SkellyScript : MonoBehaviour
         hovered = false;
         currentlySelected = false;
         outline.OutlineWidth = 0f;
+
+        skellyCanvas.SetActive(false);
     }
 
     void Update()
