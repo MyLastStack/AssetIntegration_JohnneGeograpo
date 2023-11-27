@@ -107,7 +107,6 @@ public class PlayerControl : MonoBehaviour
             selectedChar.gameObject.GetComponent<SkellyScript>().currentlySelected = false;
         }
 
-
         selectedChar = null;
     }
 }
