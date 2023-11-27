@@ -23,7 +23,12 @@ public class GameManagementScript : MonoBehaviour
 
         if (skellyCount < 1)
         {
-            gsc.EndCredit();
+            Invoke("gmEndCredit", 3);
         }
+    }
+
+    private void gmEndCredit()
+    {
+        gsc.EndCredit();
     }
 }
