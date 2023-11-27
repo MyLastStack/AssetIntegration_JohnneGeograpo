@@ -25,6 +25,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] ParticleSystem splashFX;
     float fxTimer;
 
+    [SerializeField] GameObject tooFarText;
+
     [Header("Character Status")]
     public bool onWalk;
     public bool onSpell;
@@ -46,6 +48,8 @@ public class PlayerScript : MonoBehaviour
         onWalk = true;
         onSpell = false;
         onMelee = false;
+
+        tooFarText.SetActive(false);
     }
 
     void Update()
@@ -95,7 +99,11 @@ public class PlayerScript : MonoBehaviour
 
             animator.Play("LevelUp_Battle_SwordAndShield", 0);
         }
-        else return;
+        else
+        {
+            Invoke("TooFarMsg", 2);
+            tooFarText.SetActive(false);
+        }
     }
 
     public void MeleeSwing(Vector3 target)
@@ -117,16 +125,21 @@ public class PlayerScript : MonoBehaviour
                 Invoke("FXDeactivate", fxTimer);
             }
         }
-        else return;
+        else
+        {
+            Invoke("TooFarMsg", 2);
+            tooFarText.SetActive(false);
+        }
     }
     private void FXDeactivate()
     {
         splashScript.SetActive(false);
         meleeScript.SetActive(false);
     }
-    private void KillEnemy()
-    {
 
+    private void TooFarMsg()
+    {
+        tooFarText.SetActive(true);
     }
 
     private void AgentMovementAnimation(float mag)
