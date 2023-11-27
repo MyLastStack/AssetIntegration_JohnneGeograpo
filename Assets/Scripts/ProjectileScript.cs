@@ -48,7 +48,10 @@ public class ProjectileScript : MonoBehaviour
             explosion.SetActive(true);
             explosionFX.Play();
 
-            Destroy(collision.gameObject);
+            if (collision.transform.CompareTag("AIControlled"))
+            {
+                Destroy(collision.gameObject);
+            }
 
             Invoke("DestroyItself", boomDuration);
         }
