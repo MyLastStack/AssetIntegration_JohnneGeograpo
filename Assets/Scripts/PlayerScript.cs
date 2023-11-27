@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour
 
     public float maxDistanceTravel; // DISTANCE OF CASTING SPELL
     [SerializeField] Transform spawner;
+    [SerializeField] GameObject projectile;
 
     [Header("Character Status")]
     public bool onWalk;
@@ -85,15 +86,24 @@ public class PlayerScript : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, target);
         Debug.Log(distance);
-        if (distance > maxDistanceTravel)
+        if (distance <= maxDistanceTravel)
         {
-            Debug.Log("Too far");
-        }
-        else if (distance <= maxDistanceTravel)
-        {
-            spawner.LookAt(target);
             transform.LookAt(target);
-            Debug.Log("Just right");
+            spawner.LookAt(target);
+
+            Instantiate(projectile, spawner.position, spawner.rotation);
+
+            animator.Play("LevelUp_Battle_SwordAndShield", 0);
+        }
+    }
+
+    public void MeleeSwing(Vector3 target)
+    {
+        float distance = Vector3.Distance(transform.position, target);
+        Debug.Log(distance);
+        if (distance <= maxDistanceTravel)
+        {
+            transform.LookAt(target);
 
             animator.Play("LevelUp_Battle_SwordAndShield", 0);
         }

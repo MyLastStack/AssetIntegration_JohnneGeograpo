@@ -8,6 +8,7 @@ TagManager:
   - AIControlled
   - FxTemporaire
   - Terrain
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - NonWalkable
   - Units
-  - 
+  - Projectile
   - 
   - 
   - 
