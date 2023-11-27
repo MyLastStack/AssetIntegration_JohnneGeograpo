@@ -7,11 +7,6 @@ public class FollowCursorScript : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI myText;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         Vector3 mousePos = Input.mousePosition;

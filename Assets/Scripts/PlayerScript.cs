@@ -101,8 +101,8 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
+            tooFarText.SetActive(true);
             Invoke("TooFarMsg", 2);
-            tooFarText.SetActive(false);
         }
     }
 
@@ -139,7 +139,7 @@ public class PlayerScript : MonoBehaviour
 
     private void TooFarMsg()
     {
-        tooFarText.SetActive(true);
+        tooFarText.SetActive(false);
     }
 
     private void AgentMovementAnimation(float mag)

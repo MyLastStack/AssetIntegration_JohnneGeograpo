@@ -1156,7 +1156,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334187951}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2425356, y: 0.000000028912503, z: -0.0000000072281248, w: 0.97014254}
+  m_LocalRotation: {x: 0.24253564, y: 0.0000000119759545, z: -0.0000000029939882, w: 0.97014254}
   m_LocalPosition: {x: 0, y: 8, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2170,7 +2170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2425356, y: 0.000000028912503, z: -0.0000000072281248, w: 0.97014254}
+  m_LocalRotation: {x: 0.24253564, y: 0.0000000119759545, z: -0.0000000029939882, w: 0.97014254}
   m_LocalPosition: {x: 0, y: 8, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3078,6 +3078,7 @@ MonoBehaviour:
   meleeScript: {fileID: 1623556883}
   splashScript: {fileID: 252155638}
   splashFX: {fileID: 337774803}
+  tooFarText: {fileID: 1856861172}
   onWalk: 0
   onSpell: 0
   onMelee: 0
@@ -4021,7 +4022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2002e7a7ad7754c8a1ecb50ee1b422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownTime: 5
+  cooldownTime: 3
 --- !u!1 &1698192473
 GameObject:
   m_ObjectHideFlags: 0
