@@ -88,6 +88,10 @@ public class PlayerControl : MonoBehaviour
         {
             selectedChar.gameObject.GetComponent<PlayerScript>().currentSelected = true;
         }
+        else if (hit.transform.CompareTag("AIControlled"))
+        {
+            selectedChar.gameObject.GetComponent<SkellyScript>().currentlySelected = true;
+        }
     }
 
     public void CharDeselect()
@@ -98,6 +102,11 @@ public class PlayerControl : MonoBehaviour
         {
             selectedChar.gameObject.GetComponent<PlayerScript>().currentSelected = false;
         }
+        else if (selectedChar.GetComponent<SkellyScript>() != null)
+        {
+            selectedChar.gameObject.GetComponent<SkellyScript>().currentlySelected = false;
+        }
+
 
         selectedChar = null;
     }
