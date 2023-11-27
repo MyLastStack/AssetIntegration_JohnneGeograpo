@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
+    public void EndCredit()
+    {
+        SceneManager.LoadScene(2);
+    }
+
     public static void LoadStartMenu()
     {
         SceneManager.LoadScene(0);
