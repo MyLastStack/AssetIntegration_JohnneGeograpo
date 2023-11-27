@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] Cooldown cooldown;
+
     [SerializeField] public GameObject selectedChar;
     [SerializeField] public NavMeshAgent agentChar;
     private NavMeshPath path;
@@ -31,7 +33,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if (selectedChar == null)
                 {
-                    if (hit.transform.CompareTag("PlayerControlled"))
+                    if (hit.transform.CompareTag("PlayerControlled") || hit.transform.CompareTag("AIControlled"))
                     {
                         if (!selected)
                         {
@@ -47,15 +49,27 @@ public class PlayerControl : MonoBehaviour
                         {
                             if (selectedChar.GetComponent<PlayerScript>().onWalk)
                             {
+                                agentChar.stoppingDistance = 0f;
                                 agentChar.SetDestination(hit.point);
                             }
                             else if (selectedChar.GetComponent<PlayerScript>().onSpell)
                             {
-                                selectedChar.GetComponent<PlayerScript>().SpellCast(hit.point);
+                                if (cooldown.IsCoolingDown) return;
+                                else
+                                {
+                                    selectedChar.GetComponent<PlayerScript>().SpellCast(hit.point);
+                                    cooldown.StartCooldown();
+                                }
                             }
                             else if (selectedChar.GetComponent<PlayerScript>().onMelee)
                             {
-
+                                agentChar.stoppingDistance = 1.0f;
+                                if (cooldown.IsCoolingDown) return;
+                                else if (hit.transform.CompareTag("AIControlled"))
+                                {
+                                    selectedChar.GetComponent<PlayerScript>().MeleeSwing(hit.point);
+                                    cooldown.StartCooldown();
+                                }
                             }
                         }
                     }

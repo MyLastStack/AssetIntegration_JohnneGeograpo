@@ -6,10 +6,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField] InputAction walkAction;
-    [SerializeField] InputAction spellAction;
-    [SerializeField] InputAction meleeAction;
-
     [SerializeField] Outline outline;
     [SerializeField] GameObject playerCanvas;
 
@@ -56,7 +52,6 @@ public class PlayerScript : MonoBehaviour
         if (currentSelected)
         {
             outline.OutlineWidth = 1.8f;
-            CurrentKey();
         }
         else if (!hovered)
         {
@@ -66,32 +61,28 @@ public class PlayerScript : MonoBehaviour
         AgentMovementAnimation(agent.velocity.magnitude);
     }
 
-    private void CurrentKey()
+    public void OnWalkActivate()
     {
-        if (walkAction.WasPressedThisFrame())
-        {
-            onWalk = true;
-            onSpell = false;
-            onMelee = false;
-        }
-        if (spellAction.WasPressedThisFrame())
-        {
-            onWalk = false;
-            onSpell = true;
-            onMelee = false;
-        }
-        if (meleeAction.WasPressedThisFrame())
-        {
-            onWalk = false;
-            onSpell = false;
-            onMelee = true;
-        }
+        onWalk = true;
+        onSpell = false;
+        onMelee = false;
+    }
+    public void OnSpellActivate()
+    {
+        onWalk = false;
+        onSpell = true;
+        onMelee = false;
+    }
+    public void OnMeleeActivate()
+    {
+        onWalk = false;
+        onSpell = false;
+        onMelee = true;
     }
 
     public void SpellCast(Vector3 target)
     {
         float distance = Vector3.Distance(transform.position, target);
-        Debug.Log(distance);
         if (distance <= maxDistanceTravel)
         {
             transform.LookAt(target);
@@ -101,25 +92,29 @@ public class PlayerScript : MonoBehaviour
 
             animator.Play("LevelUp_Battle_SwordAndShield", 0);
         }
+        else return;
     }
 
     public void MeleeSwing(Vector3 target)
     {
         float distance = Vector3.Distance(transform.position, target);
-        Debug.Log(distance);
         if (distance <= maxDistanceTravel)
         {
-            transform.LookAt(target);
+            agent.SetDestination(target);
+            if (distance <= agent.stoppingDistance + 3.0f)
+            {
+                transform.LookAt(target);
 
-            animator.Play("LevelUp_Battle_SwordAndShield", 0);
+                animator.Play("Attack02_SwordAndShiled", 0);
 
-            splashScript.SetActive(true);
-            splashFX.Play();
+                splashScript.SetActive(true);
+                splashFX.Play();
 
-            Invoke("FXDeactivate", fxTimer);
+                Invoke("FXDeactivate", fxTimer);
+            }
         }
+        else return;
     }
-
     private void FXDeactivate()
     {
         splashScript.SetActive(false);
@@ -140,18 +135,5 @@ public class PlayerScript : MonoBehaviour
     private void OnMouseExit()
     {
         hovered = false;
-    }
-
-    private void OnEnable()
-    {
-        walkAction.Enable();
-        spellAction.Enable();
-        meleeAction.Enable();
-    }
-    private void OnDisable()
-    {
-        walkAction.Disable();
-        spellAction.Disable();
-        meleeAction.Disable();
     }
 }

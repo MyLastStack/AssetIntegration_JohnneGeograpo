@@ -38,7 +38,7 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.CompareTag("Terrain"))
+        if (collision.transform.CompareTag("Terrain") || collision.transform.CompareTag("AIControlled"))
         {
             move = false;
 
